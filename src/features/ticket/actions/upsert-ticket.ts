@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
+import { setCookiesByKey } from "@/actions/cookies";
 import {
   ActionState,
   fromErrorToActionState,
@@ -39,6 +40,7 @@ export const upsertTicket = async (
   revalidatePath(ticketsPath());
 
   if (id) {
+    setCookiesByKey("toast", "Ticket updated");
     redirect(ticketPath(id));
   }
 
