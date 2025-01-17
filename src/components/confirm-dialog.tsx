@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 type ConfirmDialogProps = {
     title?: string;
     description?: string;
-    action: () => Promise<ActionState>;
+    action: () => Promise<FormData>;
     trigger: React.ReactElement;
 }
 
