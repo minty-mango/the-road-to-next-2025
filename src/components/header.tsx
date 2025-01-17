@@ -1,6 +1,8 @@
-import { LucideKanban } from "lucide-react"
+import { LucideKanban, LucideLogOut } from "lucide-react"
 import Link from "next/link"
+import { signOut } from "@/features/auth/actions/sign-out"
 import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths"
+import { SubmitButton } from "./form/submit-button"
 import { ThemeSwitcher } from "./theme/theme-switcher"
 import { buttonVariants } from "./ui/button"
 
@@ -16,6 +18,9 @@ const Header = () => {
             <Link href={signInPath()} className={buttonVariants({ variant: "outline" })}>
                 Sign In
             </Link>
+            <form action={signOut}>
+                <SubmitButton icon={<LucideLogOut />} />
+            </form>
         </>
     )
     return (
