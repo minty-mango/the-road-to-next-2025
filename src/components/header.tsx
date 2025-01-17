@@ -1,28 +1,55 @@
-import { LucideKanban, LucideLogOut } from "lucide-react"
-import Link from "next/link"
-import { signOut } from "@/features/auth/actions/sign-out"
-import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths"
-import { SubmitButton } from "./form/submit-button"
-import { ThemeSwitcher } from "./theme/theme-switcher"
-import { buttonVariants } from "./ui/button"
+'use client';
+import { User as AuthUser } from "@prisma/client";
+import { LucideKanban, LucideLogOut } from "lucide-react";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getAuth } from "@/auth/cookies";
+import { signOut } from "@/features/auth/actions/sign-out";
+import { homePath, signInPath, signUpPath, ticketsPath } from "@/paths";
+import { SubmitButton } from "./form/submit-button";
+import { ThemeSwitcher } from "./theme/theme-switcher";
+import { buttonVariants } from "./ui/button";
 
 const Header = () => {
-    const navItems = (
+    const [user, setUser] = useState<AuthUser | null>(null);
+    
+    useEffect(() => {
+        const fetchUser = async () => {
+            const { user } = await getAuth();
+            setUser(user);
+        }
+
+        fetchUser();
+    }, []);
+
+    const navItems = user ? (
         <>
-            <Link href={ticketsPath()} className={buttonVariants({ variant: "default" })}>
+            <Link
+                href={ticketsPath()}
+                className={buttonVariants({ variant: "default" })}
+            >
                 Tickets
-            </Link>
-            <Link href={signUpPath()} className={buttonVariants({ variant: "outline" })}>
-                Sign Up
-            </Link>
-            <Link href={signInPath()} className={buttonVariants({ variant: "outline" })}>
-                Sign In
             </Link>
             <form action={signOut}>
                 <SubmitButton icon={<LucideLogOut />} />
             </form>
         </>
-    )
+    ) : (
+        <>
+            <Link
+                href={signUpPath()}
+                className={buttonVariants({ variant: "outline" })}
+            >
+                Sign Up
+            </Link>
+            <Link
+                href={signInPath()}
+                className={buttonVariants({ variant: "default" })}
+            >
+                Sign In
+            </Link>
+        </>
+    );
     return (
         <nav
             className="
