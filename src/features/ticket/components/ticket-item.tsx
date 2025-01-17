@@ -2,6 +2,7 @@ import { Ticket } from "@prisma/client";
 import clsx from "clsx";
 import { LucideMoreVertical, LucidePencil, LucideSquareArrowOutUpRight, LucideTrash } from "lucide-react";
 import Link from "next/link";
+import { ConfirmDialog } from "@/components/confirm-dialog";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { ticketEditPath, ticketPath } from "@/paths";
@@ -33,12 +34,16 @@ const TicketItem = ({ ticket, isDetail }: TicketItemProps) => {
     )
 
     const deleteButton = (
-        <form action={deleteTicket.bind(null, ticket.id)}>
-            <Button variant={"outline"} size={"icon"}>
-                <LucideTrash className="size-4" />
-            </Button >
-        </form>
-    )
+        <ConfirmDialog
+            action={deleteTicket.bind(null, ticket.id)}
+            trigger={
+                <Button variant={"outline"} size={"icon"}>
+                    <LucideTrash className="size-4" />
+                </Button >
+            }
+        />
+    );
+
     const moreMenu = <TicketMoreMenu trigger={
         <Button variant="outline" size="icon">
             <LucideMoreVertical className="size-4" />
