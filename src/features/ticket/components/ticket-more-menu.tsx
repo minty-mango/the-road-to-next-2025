@@ -3,6 +3,7 @@
 import { Ticket, TicketStatus } from "@prisma/client";
 import { LucideTrash } from "lucide-react";
 import { toast } from "sonner";
+import { useConfirmDialog } from "@/components/confirm-dialog";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -12,6 +13,7 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { deleteTicket } from "../actions/delete-tickets";
 import { updateTicketStatus } from "../actions/update-ticket-status";
 import { TICKET_ICONS_LABELS } from "../contants";
 
@@ -21,12 +23,15 @@ type TicketMoreProps = {
 }
 
 const TicketMoreMenu = ({ ticket, trigger }: TicketMoreProps) => {
-    const deleteButton = (
-        <DropdownMenuItem>
-            <LucideTrash className="size-4" />
-            <span>Delete</span>
-        </DropdownMenuItem>
-    );
+    const [deleteButton, deleteDialog] = useConfirmDialog({
+        action: deleteTicket.bind(null, ticket.id),
+        trigger: (
+            <DropdownMenuItem>
+                <LucideTrash className="size-4" />
+                <span>Delete</span>
+            </DropdownMenuItem>
+        ),
+    });
 
     const handleUpdateTicketStatus = async (value: string) => {
         const promise = updateTicketStatus(ticket.id, value as TicketStatus);
@@ -55,16 +60,20 @@ const TicketMoreMenu = ({ ticket, trigger }: TicketMoreProps) => {
     );
 
     return (
-        <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-                {trigger}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56" side="right">
-                {ticketStatusRadioGroupItems}
-                <DropdownMenuSeparator />
-                {deleteButton}
-            </DropdownMenuContent>
-        </DropdownMenu>
+        <>
+            {deleteDialog}
+
+            <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    {trigger}
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56" side="right">
+                    {ticketStatusRadioGroupItems}
+                    <DropdownMenuSeparator />
+                    {deleteButton}
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </>
     );
 };
 
