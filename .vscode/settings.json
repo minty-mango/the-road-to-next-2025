@@ -8,5 +8,10 @@
         "typescript",
         "typescriptreact"
     ],
-    "editor.inlineSuggest.enabled": true
+    "editor.inlineSuggest.enabled": true,
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+        120
+    ],
+    "editor.colorDecorators": true
 }

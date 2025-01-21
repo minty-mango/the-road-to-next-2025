@@ -1,11 +1,23 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"],
-  "plugins": ["simple-import-sort"],
+  "extends": [
+    "next/core-web-vitals",
+    "next/typescript"
+  ],
+  "plugins": [
+    "simple-import-sort"
+  ],
   "rules": {
     "simple-import-sort/imports": [
       "error",
       {
-        "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
+        "groups": [
+          [
+            "^\\u0000",
+            "^@?\\w",
+            "^[^.]",
+            "^\\."
+          ]
+        ]
       }
     ],
     "simple-import-sort/exports": "error"
@@ -13,5 +25,5 @@
   "parserOptions": {
     "sourceType": "module",
     "ecmaVersion": "latest"
-  }
+  },
 }
