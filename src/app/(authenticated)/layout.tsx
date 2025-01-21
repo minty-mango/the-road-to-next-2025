@@ -1,11 +1,11 @@
 import { getAuthOrRedirect } from "@/features/auth/queries/get-auth-or-redirect";
 
 export default async function AuthenticatedLayout({
-    children,
+  children,
 }: Readonly<{
-    children: React.ReactNode;
+  children: React.ReactNode;
 }>) {
-    await getAuthOrRedirect();
+  await getAuthOrRedirect();
 
-    return <>{children}</>
+  return <>{children}</>;
 }

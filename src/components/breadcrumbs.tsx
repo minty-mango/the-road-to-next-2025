@@ -1,7 +1,14 @@
 import { LucideSlash } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../ui/breadcrumb";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "./ui/breadcrumb";
 
 type BreadcrumbsProps = {
   breadcrumbs: {

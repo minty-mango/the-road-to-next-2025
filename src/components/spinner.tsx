@@ -1,11 +1,14 @@
-import { LucideLoaderCircle } from "lucide-react"
+import { LucideLoaderCircle } from "lucide-react";
 
 const Spinner = () => {
-    return (
-        <div className="flex-1 w-full flex justify-center items-center">
-            <LucideLoaderCircle className="size-16 animate-spin" />
-        </div>
-    );
-}
+  return (
+    <div
+      role="status"
+      className="flex-1 flex flex-col items-center justify-center self-center"
+    >
+      <LucideLoaderCircle className="h-16 w-16 animate-spin" />
+    </div>
+  );
+};
 
-export { Spinner }
+export { Spinner };

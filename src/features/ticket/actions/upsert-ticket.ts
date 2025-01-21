@@ -3,14 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { z } from "zod";
-import { setCookiesByKey } from "@/actions/cookies";
+import { setCookieByKey } from "@/actions/cookies";
 import {
   ActionState,
   fromErrorToActionState,
   toActionState,
 } from "@/components/form/utils/to-action-state";
 import { getAuthOrRedirect } from "@/features/auth/queries/get-auth-or-redirect";
-import { isOwner } from "@/features/utils/is-owner";
+import { isOwner } from "@/features/auth/utils/is-owner";
 import { prisma } from "@/lib/prisma";
 import { ticketPath, ticketsPath } from "@/paths";
 import { toCent } from "@/utils/currency";
@@ -33,8 +33,8 @@ export const upsertTicket = async (
     if (id) {
       const ticket = await prisma.ticket.findUnique({
         where: {
-          id
-        }
+          id,
+        },
       });
 
       if (!ticket || !isOwner(user, ticket)) {
@@ -46,7 +46,7 @@ export const upsertTicket = async (
       title: formData.get("title"),
       content: formData.get("content"),
       deadline: formData.get("deadline"),
-      bounty: Number(formData.get("bounty")),
+      bounty: formData.get("bounty"),
     });
 
     const dbData = {
@@ -67,7 +67,7 @@ export const upsertTicket = async (
   revalidatePath(ticketsPath());
 
   if (id) {
-    setCookiesByKey("toast", "Ticket updated");
+    await setCookieByKey("toast", "Ticket updated");
     redirect(ticketPath(id));
   }
 

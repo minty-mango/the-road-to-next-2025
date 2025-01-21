@@ -1,6 +1,6 @@
 export type NavItem = {
-    separator?: boolean;
-    title: string;
-    href: string;
-    icon: React.ReactElement<React.SVGProps<SVGSVGElement>>;
-}
+  separator?: boolean;
+  title: string;
+  icon: React.ReactElement;
+  href: string;
+};

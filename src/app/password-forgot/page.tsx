@@ -1,6 +1,5 @@
-const ForgotPassworPage = () => {
-    return <h2 className="text-lg">ForgetPasswordPage</h2>;
+const ForgotPasswordPage = () => {
+  return <h2 className="text-lg">ForgotPasswordPage</h2>;
+};
 
-}
-
-export default ForgotPassworPage;
+export default ForgotPasswordPage;

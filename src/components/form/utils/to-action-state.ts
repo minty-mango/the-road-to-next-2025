@@ -54,7 +54,7 @@ export const toActionState = (
     status,
     message,
     fieldErrors: {},
-    timestamp: Date.now(),
     payload: formData,
+    timestamp: Date.now(),
   };
 };

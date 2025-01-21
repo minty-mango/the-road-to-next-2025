@@ -1,7 +1,7 @@
-import { User as AuthUser } from "@prisma/client";
+import { User as AuthUser } from "lucia";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { getAuth } from "@/auth/cookies";
+import { getAuth } from "../queries/get-auth";
 
 const useAuth = () => {
   const [user, setUser] = useState<AuthUser | null>(null);
